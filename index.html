@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Jogo 4x4 - Neon Click Arena</title>
+<style>
+    body {
+        background: #111;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 30px;
+    }
+    h1 {
+        color: #00ffea;
+        text-shadow: 0 0 8px #00ffea;
+    }
+    #tabuleiro {
+        display: grid;
+        grid-template-columns: repeat(4, 80px);
+        grid-gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .botao {
+        background: #222;
+        border: 2px solid #00ffea;
+        padding: 20px;
+        font-size: 20px;
+        color: #00ffea;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: 0.2s;
+    }
+    .botao:hover {
+        background: #00ffea;
+        color: #111;
+    }
+</style>
+</head>
+<body>
+
+<h1>Neon Click Arena 🎮</h1>
+<p>Toque no número correto para pontuar!</p>
+<p><b>Pontuação:</b> <span id="score">0</span></p>
+
+<div id="tabuleiro"></div>
+
+<script>
+let score = 0;
+let tabuleiro = document.getElementById("tabuleiro");
+
+function gerarJogo() {
+    tabuleiro.innerHTML = "";
+    let numeros = [];
+
+    for (let i = 1; i <= 16; i++) {
+        numeros.push(i);
+    }
+
+    numeros.sort(() => Math.random() - 0.5);
+
+    numeros.forEach(num => {
+        let botao = document.createElement("button");
+        botao.className = "botao";
+        botao.textContent = num;
+        botao.onclick = () => {
+            if (num === 1) {
+                score += 10;
+                document.getElementById("score").textContent = score;
+                gerarJogo();
+            }
+        };
+        tabuleiro.appendChild(botao);
+    });
+}
+
+gerarJogo();
+</script>
+
+</body>
+</html>
